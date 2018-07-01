@@ -4,12 +4,14 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
+Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
 Summary  : Easily generate well-formed, namespace-aware XML.
 Group    : Development/Tools
-License  : unrestricted
+License  : MIT unrestricted
+Requires: perl-XML-Writer-license
 Requires: perl-XML-Writer-man
 
 %description
@@ -20,6 +22,14 @@ checking on the output, to make certain (for example) that start and
 end tags match, that there is exactly one document element, and that
 there are not duplicate attribute names.
 
+%package license
+Summary: license components for the perl-XML-Writer package.
+Group: Default
+
+%description license
+license components for the perl-XML-Writer package.
+
+
 %package man
 Summary: man components for the perl-XML-Writer package.
 Group: Default
@@ -29,7 +39,11 @@ man components for the perl-XML-Writer package.
 
 
 %prep
+tar -xf %{SOURCE1}
+cd ..
 %setup -q -n XML-Writer-0.625
+mkdir -p %{_topdir}/BUILD/XML-Writer-0.625/deblicense/
+mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/XML-Writer-0.625/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -53,6 +67,8 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/perl-XML-Writer
+cp LICENSE %{buildroot}/usr/share/doc/perl-XML-Writer/LICENSE
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot}
 else
@@ -66,6 +82,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %files
 %defattr(-,root,root,-)
 /usr/lib/perl5/site_perl/5.26.1/XML/Writer.pm
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/perl-XML-Writer/LICENSE
 
 %files man
 %defattr(-,root,root,-)
