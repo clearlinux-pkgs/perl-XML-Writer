@@ -4,13 +4,13 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 3
+Release  : 4
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
 Summary  : Easily generate well-formed, namespace-aware XML.
 Group    : Development/Tools
-License  : MIT unrestricted
+License  : Artistic-1.0 GPL-1.0 MIT unrestricted
 Requires: perl-XML-Writer-license
 Requires: perl-XML-Writer-man
 
@@ -69,6 +69,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/perl-XML-Writer
 cp LICENSE %{buildroot}/usr/share/doc/perl-XML-Writer/LICENSE
+cp deblicense/copyright %{buildroot}/usr/share/doc/perl-XML-Writer/deblicense_copyright
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot}
 else
@@ -86,6 +87,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %files license
 %defattr(-,root,root,-)
 /usr/share/doc/perl-XML-Writer/LICENSE
+/usr/share/doc/perl-XML-Writer/deblicense_copyright
 
 %files man
 %defattr(-,root,root,-)
