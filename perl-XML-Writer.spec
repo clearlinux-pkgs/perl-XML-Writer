@@ -4,13 +4,13 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 4
+Release  : 5
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
 Summary  : Easily generate well-formed, namespace-aware XML.
 Group    : Development/Tools
-License  : Artistic-1.0 GPL-1.0 MIT unrestricted
+License  : Artistic-1.0 GPL-1.0 MIT
 Requires: perl-XML-Writer-license
 Requires: perl-XML-Writer-man
 
