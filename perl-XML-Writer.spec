@@ -4,7 +4,7 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 7
+Release  : 8
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
@@ -83,7 +83,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/XML/Writer.pm
+/usr/lib/perl5/vendor_perl/5.28.0/XML/Writer.pm
 
 %files dev
 %defattr(-,root,root,-)
