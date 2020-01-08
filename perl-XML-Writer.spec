@@ -4,7 +4,7 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 15
+Release  : 16
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : Easily generate well-formed, namespace-aware XML.
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0 MIT
 Requires: perl-XML-Writer-license = %{version}-%{release}
+Requires: perl-XML-Writer-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -26,6 +27,7 @@ there are not duplicate attribute names.
 Summary: dev components for the perl-XML-Writer package.
 Group: Development
 Provides: perl-XML-Writer-devel = %{version}-%{release}
+Requires: perl-XML-Writer = %{version}-%{release}
 
 %description dev
 dev components for the perl-XML-Writer package.
@@ -39,18 +41,28 @@ Group: Default
 license components for the perl-XML-Writer package.
 
 
+%package perl
+Summary: perl components for the perl-XML-Writer package.
+Group: Default
+Requires: perl-XML-Writer = %{version}-%{release}
+
+%description perl
+perl components for the perl-XML-Writer package.
+
+
 %prep
 %setup -q -n XML-Writer-0.625
-cd ..
-%setup -q -T -D -n XML-Writer-0.625 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libxml-writer-perl_0.625-1.debian.tar.xz
+cd %{_builddir}/XML-Writer-0.625
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/XML-Writer-0.625/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/XML-Writer-0.625/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -60,7 +72,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -69,8 +81,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-XML-Writer
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-XML-Writer/LICENSE
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-XML-Writer/deblicense_copyright
+cp %{_builddir}/XML-Writer-0.625/LICENSE %{buildroot}/usr/share/package-licenses/perl-XML-Writer/0baf8d8f6dac79b5561f10f712a193017ea6951c
+cp %{_builddir}/XML-Writer-0.625/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-XML-Writer/450078e1b7634599c359700351c91571ea6569ea
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -83,7 +95,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/XML/Writer.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -91,5 +102,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-XML-Writer/LICENSE
-/usr/share/package-licenses/perl-XML-Writer/deblicense_copyright
+/usr/share/package-licenses/perl-XML-Writer/0baf8d8f6dac79b5561f10f712a193017ea6951c
+/usr/share/package-licenses/perl-XML-Writer/450078e1b7634599c359700351c91571ea6569ea
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/XML/Writer.pm
