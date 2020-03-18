@@ -4,7 +4,7 @@
 #
 Name     : perl-XML-Writer
 Version  : 0.625
-Release  : 16
+Release  : 17
 URL      : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libx/libxml-writer-perl/libxml-writer-perl_0.625-1.debian.tar.xz
@@ -82,7 +82,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-XML-Writer
 cp %{_builddir}/XML-Writer-0.625/LICENSE %{buildroot}/usr/share/package-licenses/perl-XML-Writer/0baf8d8f6dac79b5561f10f712a193017ea6951c
-cp %{_builddir}/XML-Writer-0.625/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-XML-Writer/450078e1b7634599c359700351c91571ea6569ea
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-XML-Writer/450078e1b7634599c359700351c91571ea6569ea
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -107,4 +107,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/XML/Writer.pm
+/usr/lib/perl5/vendor_perl/5.30.2/XML/Writer.pm
